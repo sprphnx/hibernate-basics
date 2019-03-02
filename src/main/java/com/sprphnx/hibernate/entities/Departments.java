@@ -17,10 +17,10 @@ public class Departments {
 	String departmentName;
 	
 	@Column(name = "MANAGER_ID")
-	long managerId;
+	Long managerId;
 	
 	@Column(name = "LOCATION_ID")
-	long locationId;
+	Long locationId;
 	
 	public Departments() {
 	

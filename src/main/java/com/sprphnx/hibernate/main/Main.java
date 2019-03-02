@@ -1,5 +1,7 @@
 package com.sprphnx.hibernate.main;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +22,8 @@ public class Main {
 
 		try {
 			//createDepartment(session);
-			readDepartment(session);
+			//readDepartment(session);
+			readAllDepartments(session);
 			
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -28,6 +31,12 @@ public class Main {
 			sessionFactory.close();
 		}
 
+	}
+
+	private static void readAllDepartments(Session session) {
+		session.beginTransaction();
+		List<Departments> departments = session.createQuery("from Departments").getResultList();
+		departments.forEach((department)->System.out.println(department.getDepartmentName()));
 	}
 
 	private static void readDepartment(Session session) {
