@@ -23,7 +23,8 @@ public class Main {
 		try {
 			//createDepartment(session);
 			//readDepartment(session);
-			readAllDepartments(session);
+			//readAllDepartments(session);
+			readSpecificDepartments(session);
 			
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -31,6 +32,15 @@ public class Main {
 			sessionFactory.close();
 		}
 
+	}
+
+	private static void readSpecificDepartments(Session session) {
+		session.beginTransaction();
+		List<Departments> departments = session.createQuery("from Departments d where d.departmentName like 'IT%'").getResultList();
+		System.out.println("_______________________________________");
+		departments.forEach((department)->System.out.println(department.getDepartmentName()));
+		System.out.println("_______________________________________");
+		session.getTransaction().commit();
 	}
 
 	private static void readAllDepartments(Session session) {
