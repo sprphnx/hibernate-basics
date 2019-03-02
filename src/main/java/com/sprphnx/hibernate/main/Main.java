@@ -24,7 +24,11 @@ public class Main {
 			//createDepartment(session);
 			//readDepartment(session);
 			//readAllDepartments(session);
-			readSpecificDepartments(session);
+			//readSpecificDepartments(session);
+			//updateDepartment(session);
+			session.beginTransaction();
+			session.createQuery("update Departments d set d.departmentName ='IT'").executeUpdate();
+			session.getTransaction().commit();
 			
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -32,6 +36,15 @@ public class Main {
 			sessionFactory.close();
 		}
 
+	}
+
+	private static void updateDepartment(Session session) {
+		session.beginTransaction();
+		Departments department = session.get(Departments.class, 280L);
+		System.out.println("***************"+department.getDepartmentName());
+		department.setDepartmentName("IT department");
+		session.getTransaction().commit();//explicit save of the object is not required as the object is in persitant state.
+		System.out.println("***************"+department.getDepartmentName());
 	}
 
 	private static void readSpecificDepartments(Session session) {
